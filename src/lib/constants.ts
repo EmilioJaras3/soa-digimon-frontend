@@ -4,7 +4,7 @@ export const API_ENDPOINTS = {
 } as const;
 
 export const ERROR_MESSAGES = {
-  CONNECTION_ERROR: 'Error connecting to the server',
+  CONNECTION_ERROR: 'Error conectando al servidor',
 } as const;
 
 export const FONT_SIZES = {
