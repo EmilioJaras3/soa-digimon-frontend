@@ -1,7 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { DigiApiResponse } from './types';
-import { ERROR_MESSAGES } from './config';
+
+interface DigiApiResponse {
+  digimons: any[];
+}
+
+const ERROR_MESSAGES = {
+  CONNECTION_ERROR: 'Error connecting to the server',
+} as const;
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://34.225.231.69:3001';
 

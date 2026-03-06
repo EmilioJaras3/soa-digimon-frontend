@@ -1,12 +1,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useDigiApi } from '@/lib/useDigiApi';
+import { useDigiApi } from '@/hooks/useDigiApi';
 import { DigimonCard } from '@/components/DigimonCard';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 import { ErrorAlert } from '@/components/ErrorAlert';
 import { Navigation } from '@/components/Navigation';
-import { API_ENDPOINTS, VIEW_TYPES, FONT_SIZES } from '@/lib/config';
+
+const API_ENDPOINTS = {
+  DIGIMONS: '/api/digimons',
+  MEGA: '/api/mega',
+} as const;
+
+const VIEW_TYPES = {
+  ALL: 'all',
+  MEGA: 'mega',
+} as const;
+
+const FONT_SIZES = {
+  ICON: '24px',
+} as const;
 
 export default function Home() {
     const [view, setView] = useState<string>(VIEW_TYPES.ALL);
