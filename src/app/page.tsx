@@ -2,21 +2,22 @@
 
 import React, { useState } from 'react';
 import { useDigiApi } from '@/lib/useDigiApi';
-import { CoinCard } from '@/components/CoinCard';
+import { DigimonCard } from '@/components/DigimonCard';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 import { ErrorAlert } from '@/components/ErrorAlert';
 import {
     RefreshCcw,
     Search,
     TrendingUp,
-    Coins,
+    Zap,
     Github,
     LayoutDashboard
 } from 'lucide-react';
 
 export default function Home() {
-    const [limit, setLimit] = useState(12);
-    const { data, loading, error, refetch } = useDigiApi(`/api/coins?limit=${limit}`);
+    const [view, setView] = useState<'all' | 'mega'>('all');
+    const endpoint = view === 'all' ? '/api/coins' : '/api/trending';
+    const { data, loading, error, refetch } = useDigiApi(endpoint);
 
     return (
         <main className="min-h-screen pb-20">
@@ -25,19 +26,28 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="bg-gradient-to-tr from-indigo-600 to-violet-600 p-2.5 rounded-xl shadow-lg shadow-indigo-500/20">
-                            <Coins className="text-white" size={24} />
+                            <Zap className="text-white" size={24} />
                         </div>
                         <div>
                             <h1 className="text-xl font-black text-white tracking-tight">DIGI <span className="text-indigo-500">API</span></h1>
-                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Crypto Gateway</p>
+                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Digimon Explorer</p>
                         </div>
                     </div>
 
                     <div className="hidden md:flex items-center gap-6">
                         <nav className="flex items-center gap-8 text-sm font-medium text-slate-400">
-                            <a href="#" className="text-indigo-400 font-bold">Dashboard</a>
-                            <a href="#" className="hover:text-white transition-colors">Mercados</a>
-                            <a href="#" className="hover:text-white transition-colors">Trending</a>
+                            <button
+                                onClick={() => setView('all')}
+                                className={`transition-colors ${view === 'all' ? 'text-indigo-400 font-bold' : 'hover:text-white'}`}
+                            >
+                                Todos
+                            </button>
+                            <button
+                                onClick={() => setView('mega')}
+                                className={`transition-colors ${view === 'mega' ? 'text-indigo-400 font-bold' : 'hover:text-white'}`}
+                            >
+                                Mega Level
+                            </button>
                         </nav>
                         <div className="h-6 w-px bg-white/10" />
                         <a
@@ -58,31 +68,35 @@ export default function Home() {
                         <div>
                             <div className="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-full text-xs font-bold mb-4 border border-indigo-500/20">
                                 <TrendingUp size={14} />
-                                Real-time market data from CoinGecko
+                                Real-time Digimon database access
                             </div>
                             <h2 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
-                                Explora el mercado <br />
+                                Explora el mundo <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
-                                    cripto en tiempo real.
+                                    digital en tiempo real.
                                 </span>
                             </h2>
                             <p className="text-slate-400 max-w-xl text-lg">
-                                Visualiza datos actualizados, tendencias y capitalización de mercado a través de nuestra arquitectura desacoplada.
+                                Visualiza datos actualizados de tus monstruos digitales favoritos a través de nuestra arquitectura SOA desacoplada.
                             </p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <div className="bg-slate-900 border border-slate-800 p-1.5 rounded-xl flex items-center">
-                                {[6, 12, 24, 48].map((val) => (
-                                    <button
-                                        key={val}
-                                        onClick={() => setLimit(val)}
-                                        className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${limit === val ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'
-                                            }`}
-                                    >
-                                        {val}
-                                    </button>
-                                ))}
+                                <button
+                                    onClick={() => setView('all')}
+                                    className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${view === 'all' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'
+                                        }`}
+                                >
+                                    General
+                                </button>
+                                <button
+                                    onClick={() => setView('mega')}
+                                    className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${view === 'mega' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'
+                                        }`}
+                                >
+                                    Megas
+                                </button>
                             </div>
                             <button
                                 onClick={() => refetch()}
@@ -105,8 +119,8 @@ export default function Home() {
                                 {loading ? (
                                     <LoadingSkeleton />
                                 ) : (
-                                    data?.coins?.map((coin) => (
-                                        <CoinCard key={coin.id} coin={coin} />
+                                    data?.digimons?.map((digimon, idx) => (
+                                        <DigimonCard key={`${digimon.name}-${idx}`} digimon={digimon} />
                                     ))
                                 )}
                             </div>
@@ -123,7 +137,7 @@ export default function Home() {
                         <span>SOA Arquitectura | Luis Emilio Jaras Sánchez</span>
                     </div>
                     <div className="text-slate-600 text-[10px] uppercase font-bold tracking-widest">
-                        Ultima sincronización: {data?.timestamp ? new Date(data.timestamp).toLocaleString() : 'N/A'}
+                        Sincronización DigiApi: {data?.timestamp ? new Date(data.timestamp).toLocaleString() : 'N/A'}
                     </div>
                 </div>
             </footer>

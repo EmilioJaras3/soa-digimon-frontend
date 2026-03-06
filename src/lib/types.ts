@@ -1,19 +1,12 @@
-export interface DigiCoin {
-    id: string;
-    symbol: string;
+export interface Digimon {
     name: string;
-    image: string;
-    current_price: number;
-    market_cap: number;
-    market_cap_rank: number;
-    price_change_percentage_24h: number;
-    high_24h: number;
-    low_24h: number;
+    img: string;
+    level: string;
 }
 
 export interface DigiApiResponse {
-    coins?: DigiCoin[];
-    coin?: DigiCoin;
-    trending?: any;
+    digimons?: Digimon[];
+    digimon?: Digimon;
     timestamp: string;
+    error?: string;
 }
