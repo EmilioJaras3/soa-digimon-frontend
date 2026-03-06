@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Digi API - Crypto Dashboard',
-    description: 'Dashboard para el consumo de APIs de terceros (CoinGecko)',
+    title: 'Digi API - Digimon Explorer',
+    description: 'Dashboard SOA para el consumo de la Digimon API',
 };
 
 export default function RootLayout({

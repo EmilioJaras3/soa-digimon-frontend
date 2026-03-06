@@ -7,7 +7,6 @@ import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 import { ErrorAlert } from '@/components/ErrorAlert';
 import {
     RefreshCcw,
-    Search,
     TrendingUp,
     Zap,
     Github,
