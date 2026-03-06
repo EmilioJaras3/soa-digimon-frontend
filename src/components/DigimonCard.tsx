@@ -55,12 +55,7 @@ export const DigimonCard: React.FC<DigimonCardProps> = ({ digimon }) => {
                         Digital Monster
                     </p>
                 </div>
-                <div className="mt-auto">
-                    <button className="w-full flex items-center justify-center gap-2 rounded-xl border border-surface-border bg-white/5 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary/20 hover:border-primary/50 transition-all">
-                        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>visibility</span>
-                        Ver detalles
-                    </button>
-                </div>
+
             </div>
         </article>
     );
