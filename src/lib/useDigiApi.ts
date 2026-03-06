@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { DigiApiResponse } from './types';
+import { ERROR_MESSAGES } from './config';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://34.225.231.69:3001';
 
@@ -16,7 +17,7 @@ export function useDigiApi(endpoint: string) {
             const response = await axios.get(`${API_BASE_URL}${endpoint}`);
             setData(response.data);
         } catch (err: any) {
-            setError(err.response?.data?.error || err.message || 'Error connecting to the server');
+            setError(err.response?.data?.error || err.message || ERROR_MESSAGES.CONNECTION_ERROR);
         } finally {
             setLoading(false);
         }

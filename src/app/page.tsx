@@ -5,10 +5,12 @@ import { useDigiApi } from '@/lib/useDigiApi';
 import { DigimonCard } from '@/components/DigimonCard';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 import { ErrorAlert } from '@/components/ErrorAlert';
+import { Navigation } from '@/components/Navigation';
+import { API_ENDPOINTS, VIEW_TYPES, FONT_SIZES } from '@/lib/config';
 
 export default function Home() {
-    const [view, setView] = useState<'all' | 'mega'>('all');
-    const endpoint = view === 'all' ? '/api/digimons' : '/api/mega';
+    const [view, setView] = useState<string>(VIEW_TYPES.ALL);
+    const endpoint = view === VIEW_TYPES.ALL ? API_ENDPOINTS.DIGIMONS : API_ENDPOINTS.MEGA;
     const { data, loading, error, refetch } = useDigiApi(endpoint);
 
     return (
@@ -18,7 +20,7 @@ export default function Home() {
                 <div className="mx-auto flex max-w-[1440px] items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-primary-light to-primary p-2 shadow-lg shadow-primary/20">
-                            <span className="material-symbols-outlined text-white" style={{ fontSize: '24px' }}>data_object</span>
+                            <span className="material-symbols-outlined text-white" style={{ fontSize: FONT_SIZES.ICON }}>data_object</span>
                         </div>
                         <div className="flex flex-col">
                             <h1 className="text-xl font-bold leading-none tracking-tight text-white">
@@ -28,22 +30,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <nav className="hidden md:flex items-center gap-8">
-                        <button
-                            onClick={() => setView('all')}
-                            className={`text-sm font-medium transition-colors relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-primary-light after:transition-all ${view === 'all' ? 'text-white after:w-full' : 'text-slate-300 hover:text-white after:w-0 hover:after:w-full'
-                                }`}
-                        >
-                            Todos
-                        </button>
-                        <button
-                            onClick={() => setView('mega')}
-                            className={`text-sm font-medium transition-colors relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-primary-light after:transition-all ${view === 'mega' ? 'text-white after:w-full' : 'text-slate-300 hover:text-white after:w-0 hover:after:w-full'
-                                }`}
-                        >
-                            Mega Level
-                        </button>
-                    </nav>
+                    <Navigation view={view} onViewChange={setView} />
 
                     <div className="flex items-center gap-4">
                         <button className="md:hidden flex items-center justify-center rounded-lg bg-white/5 p-2 text-white border border-surface-border">
@@ -55,7 +42,6 @@ export default function Home() {
 
             <main className="mx-auto max-w-[1440px] px-6 py-8 lg:px-12 flex-1">
 
-
                 <section>
                     <div className="mb-8 flex items-center justify-between">
                         <h3 className="text-2xl font-bold text-white flex items-center gap-3">
@@ -63,8 +49,8 @@ export default function Home() {
                             Directorio Digimon
                         </h3>
                         <div className="flex gap-2">
-                            <button className={`rounded-lg border border-surface-border p-2 transition-colors ${view === 'mega' ? 'bg-primary/20 text-white border-primary/50' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'}`}
-                                onClick={() => setView(view === 'mega' ? 'all' : 'mega')}>
+                            <button className={`rounded-lg border border-surface-border p-2 transition-colors ${view === VIEW_TYPES.MEGA ? 'bg-primary/20 text-white border-primary/50' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'}`}
+                                onClick={() => setView(view === VIEW_TYPES.MEGA ? VIEW_TYPES.ALL : VIEW_TYPES.MEGA)}>
                                 <span className="material-symbols-outlined">filter_list</span>
                             </button>
                         </div>
@@ -89,7 +75,6 @@ export default function Home() {
                     </div>
                 </section>
             </main>
-
 
             <footer className="mt-20 border-t border-surface-border bg-background-dark/50 backdrop-blur-sm py-12">
                 <div className="mx-auto max-w-[1440px] px-6 text-center lg:px-12 flex flex-col items-center justify-center gap-4">
