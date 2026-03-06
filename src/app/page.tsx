@@ -8,7 +8,7 @@ import { ErrorAlert } from '@/components/ErrorAlert';
 
 export default function Home() {
     const [view, setView] = useState<'all' | 'mega'>('all');
-    const endpoint = view === 'all' ? '/api/coins' : '/api/trending';
+    const endpoint = view === 'all' ? '/api/digimons' : '/api/mega';
     const { data, loading, error, refetch } = useDigiApi(endpoint);
 
     return (
