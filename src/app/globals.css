@@ -15,6 +15,21 @@ body {
             rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
+@layer components {
+    .glass-card {
+        @apply bg-slate-900/40 backdrop-blur-md border border-white/10 transition-all duration-300;
+    }
+
+    .glass-card:hover {
+        @apply border-primary/50 -translate-y-1;
+        box-shadow: 0 0 20px rgba(91, 19, 236, 0.3);
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-br from-primary-light to-primary;
+    }
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;

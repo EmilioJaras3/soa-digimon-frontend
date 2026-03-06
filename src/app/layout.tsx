@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const spaceGrotesk = Space_Grotesk({
+    subsets: ['latin'],
+    variable: '--font-space-grotesk',
+});
 
 export const metadata: Metadata = {
-    title: 'Digi API - Digimon Explorer',
-    description: 'Dashboard SOA para el consumo de la Digimon API',
+    title: 'DIGI API Premium Dashboard',
+    description: 'Digimon Explorer - SOA Arquitectura',
 };
 
 export default function RootLayout({
@@ -16,7 +19,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="es" className="dark">
-            <body className={`${inter.className} min-h-screen bg-slate-950 text-slate-200 antialiased`}>
+            <head>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+            </head>
+            <body className={`${spaceGrotesk.variable} font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen selection:bg-primary/30 selection:text-primary-light antialiased`}>
                 {children}
             </body>
         </html>
