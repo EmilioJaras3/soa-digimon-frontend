@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { DigiApiResponse } from './types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://34.225.231.69:3001';
 
 export function useDigiApi(endpoint: string) {
     const [data, setData] = useState<DigiApiResponse | null>(null);
